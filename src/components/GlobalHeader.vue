@@ -48,7 +48,7 @@ const visibleRoutes = computed(() => {
       return false;
     }
     // 根据权限过滤菜单
-    if (!checkAccess(loginUser, item.meta?.access as string)) {
+    if (!checkAccess(loginUser.value, item.meta?.access as string)) {
       return false;
     }
     return true;

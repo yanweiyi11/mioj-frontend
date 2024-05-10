@@ -8,12 +8,12 @@
       class="login-form"
     >
       <a-form-item field="userAccount" label="账号">
-        <a-input v-model="form.userAccount" placeholder="请输入你的账号" />
+        <a-input v-model="form.userAccount" placeholder="请输入账号" />
       </a-form-item>
       <a-form-item field="userPassword" label="密码">
         <a-input-password
           v-model="form.userPassword"
-          placeholder="请输入你的密码"
+          placeholder="请输入密码"
         />
       </a-form-item>
       <a-form-item>
@@ -36,8 +36,8 @@ import { useStore } from "vuex";
  * 表单信息
  */
 const form = reactive({
-  userAccount: "",
-  userPassword: "",
+  userAccount: "admin",
+  userPassword: "12345678",
 } as UserLoginRequest);
 
 const router = useRouter();

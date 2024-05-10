@@ -1,4 +1,5 @@
 import AccessEnum from "@/access/accessEnum";
+import { LoginUserVO } from "../../generated";
 
 /**
  * 检查权限（判断当前登录用户是否具有某个权限）
@@ -7,10 +8,12 @@ import AccessEnum from "@/access/accessEnum";
  * @param needAccess 需要有的权限
  * @return boolean 有无权限
  */
-const checkAccess = (loginUser: any, needAccess = AccessEnum.NOT_LOGIN) => {
+const checkAccess = (
+  loginUser: LoginUserVO,
+  needAccess = AccessEnum.NOT_LOGIN
+) => {
   // 获取当前登录用户具有的权限（如果没有 loginUser，则表示未登录）
   const loginUserAccess = loginUser?.userRole ?? AccessEnum.NOT_LOGIN;
-
   // 直接返回权限检查的结果
   switch (needAccess) {
     case AccessEnum.NOT_LOGIN:

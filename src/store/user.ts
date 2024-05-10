@@ -1,4 +1,3 @@
-// initial state
 import { StoreOptions } from "vuex";
 import AccessEnum from "@/access/accessEnum";
 import { UserControllerService } from "../../generated";

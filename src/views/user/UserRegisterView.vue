@@ -9,12 +9,12 @@
       class="register-form"
     >
       <a-form-item field="userAccount" label="账号">
-        <a-input v-model="form.userAccount" placeholder="设置你的账号" />
+        <a-input v-model="form.userAccount" placeholder="请设置账号" />
       </a-form-item>
       <a-form-item field="userPassword" label="密码">
         <a-input-password
           v-model="form.userPassword"
-          placeholder="设置你的密码"
+          placeholder="请设置密码"
         />
       </a-form-item>
       <a-form-item field="checkPassword" label="确认密码">
