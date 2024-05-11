@@ -7,6 +7,8 @@ import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserRegisterView from "@/views/user/UserRegisterView.vue";
 import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
+import QuestionsView from "@/views/question/QuestionsView.vue";
+import ViewQuestionsView from "@/views/question/ViewQuestionsView.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -30,11 +32,26 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
+    path: "/",
+    name: "主页",
+    component: QuestionsView,
+  },
+  {
+    path: "/view/question/:id",
+    name: "在线做题",
+    component: ViewQuestionsView,
+    props: true,
+    meta: {
+      hideInMenu: true,
+      access: AccessEnum.USER,
+    },
+  },
+  {
     path: "/add/question",
     name: "创建题目",
     component: AddQuestionView,
     meta: {
-      access: AccessEnum.ADMIN,
+      access: AccessEnum.USER,
     },
   },
   {
@@ -42,7 +59,8 @@ export const routes: Array<RouteRecordRaw> = [
     name: "更新题目",
     component: AddQuestionView,
     meta: {
-      access: AccessEnum.ADMIN,
+      access: AccessEnum.USER,
+      hideInMenu: true,
     },
   },
   {
@@ -54,24 +72,11 @@ export const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-    path: "/",
-    name: "home",
-    component: ExampleView,
-  },
-  {
     path: "/noAuth",
     name: "无权限",
     component: NoAuthView,
     meta: {
       hideInMenu: true,
-    },
-  },
-  {
-    path: "/about",
-    name: "about",
-    component: () => import("../views/AboutView.vue"),
-    meta: {
-      access: AccessEnum.ADMIN,
     },
   },
 ];

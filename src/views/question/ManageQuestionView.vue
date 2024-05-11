@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watchEffect } from "vue";
 import { Question, QuestionControllerService } from "../../../generated";
 import { Message } from "@arco-design/web-vue";
 import { useRouter } from "vue-router";
 
-const show = ref(true);
+const router = useRouter();
 
 const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref({
-  pageSize: 10,
-  pageNum: 1,
+  pageSize: 5,
+  current: 1,
 });
 
 const loadData = async () => {
@@ -26,6 +26,13 @@ const loadData = async () => {
 };
 
 /**
+ * 监听 searchParams 变量，改变时出发页面重新加载
+ */
+watchEffect(() => {
+  loadData();
+});
+
+/**
  * 页面加载完成后，请求数据
  */
 onMounted(() => {
@@ -34,7 +41,7 @@ onMounted(() => {
 
 const columns = [
   {
-    title: "id",
+    title: "题号",
     dataIndex: "id",
   },
   {
@@ -107,7 +114,6 @@ const doDelete = async (question: Question) => {
   }
 };
 
-const router = useRouter();
 const doUpdate = async (question: Question) => {
   await router.push({
     path: "/update/question",
@@ -115,6 +121,10 @@ const doUpdate = async (question: Question) => {
       id: question.id,
     },
   });
+};
+
+const onPageChange = (page: number) => {
+  searchParams.value = { ...searchParams.value, current: page };
 };
 </script>
 
@@ -127,9 +137,10 @@ const doUpdate = async (question: Question) => {
       :pagination="{
         showTotal: true,
         pageSize: searchParams.pageSize,
-        current: searchParams.pageNum,
+        current: searchParams.current,
         total: total,
       }"
+      @page-change="onPageChange"
     >
       <template #optional="{ record }">
         <a-space>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import MDEditor from "@/components/MDEditor.vue";
 import { QuestionControllerService } from "../../../generated";
 import { Message } from "@arco-design/web-vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();
-const updatePage = route.path.includes("update");
+const updatePage = computed(() => route.path.includes("update"));
 
 /**
  * 根据题目 id 获取老的数据
@@ -52,10 +52,20 @@ const loadData = async () => {
 };
 
 onMounted(() => {
-  loadData();
+  if (updatePage.value) {
+    loadData();
+  }
 });
-
-const form = ref({
+// 监听路由变化来重置表单
+watch(
+  () => route.path,
+  (newPath) => {
+    if (!newPath.includes("update")) {
+      form.value = { ...initParams };
+    }
+  }
+);
+const initParams = {
   title: "",
   tags: [],
   answer: "",
@@ -71,7 +81,9 @@ const form = ref({
       output: "",
     },
   ],
-});
+};
+
+const form = ref({ ...initParams });
 
 /**
  * 新增判题用例
@@ -101,7 +113,7 @@ const onAnswerChange = (v: string) => {
 
 const doSubmit = async () => {
   // 区分更新和创建
-  if (updatePage) {
+  if (updatePage.value) {
     const res = await QuestionControllerService.updateQuestionUsingPost(
       form.value
     );
