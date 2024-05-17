@@ -42,7 +42,7 @@ const form = ref<QuestionSubmitAddRequest>({
 });
 
 const doSubmit = async () => {
-  const res = await QuestionSubmitControllerService.doQuestionSubmitUsingPost(
+  const res = await QuestionControllerService.doQuestionSubmitUsingPost(
     form.value
   );
   if (res.code === 0) {

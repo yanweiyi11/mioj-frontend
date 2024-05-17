@@ -9,6 +9,7 @@ import AddQuestionView from "@/views/question/AddQuestionView.vue";
 import ManageQuestionView from "@/views/question/ManageQuestionView.vue";
 import QuestionsView from "@/views/question/QuestionsView.vue";
 import ViewQuestionsView from "@/views/question/ViewQuestionsView.vue";
+import QuestionSubmitVo from "@/views/question/QuestionSubmitVo.vue";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -70,6 +71,11 @@ export const routes: Array<RouteRecordRaw> = [
     meta: {
       access: AccessEnum.ADMIN,
     },
+  },
+  {
+    path: "/question_submit",
+    name: "提交管理",
+    component: QuestionSubmitVo,
   },
   {
     path: "/noAuth",
